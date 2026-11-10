@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bangla names review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600&display=swap">
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#1d2433;--muted:#5b6475;--line:#d9dee7;--accent:#1f4e78;--ok:#2e7d32;--edit:#b45f06;--unsure:#7b1fa2;--bad:#c62828;--active:#eaf1fb}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+.bn{font-family:"Noto Sans Bengali","Nirmala UI","Vrinda","Kohinoor Bangla","Bangla Sangam MN",sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--accent);color:#fff;padding:8px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+header .title{font-weight:600;flex:1;min-width:150px}
+header button,header a{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:5px 10px;cursor:pointer;font-size:14px;text-decoration:none}
+.pos{font-size:14px;opacity:.95}
+.sync{font-size:13px;padding:3px 8px;border-radius:12px;background:rgba(255,255,255,.15)}
+.sync.saved{background:#2e7d32}.sync.saving{background:#5c6bc0}.sync.retry{background:#e65100}.sync.local{background:#6d4c41}
+.bar{height:5px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;width:100%}
+.bar>div{height:100%;background:#9fd3ff;width:0;transition:width .2s}
+main{max-width:820px;margin:0 auto;padding:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:12px}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:17px;margin:14px 0 6px}
+.muted{color:var(--muted);font-size:14px}
+label.field{display:block;margin:12px 0 4px;font-weight:600;font-size:14px}
+input[type=text],select,textarea{width:100%;font-size:17px;padding:8px 10px;border:1px solid #b9c1ce;border-radius:6px;font-family:inherit;background:#fff}
+textarea{min-height:46px;resize:vertical}
+textarea.bn{font-family:"Noto Sans Bengali","Nirmala UI","Vrinda","Kohinoor Bangla","Bangla Sangam MN",sans-serif}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:11px 18px;font-size:16px;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.row{border:2px solid var(--line);border-radius:10px;padding:12px;margin:10px 0;background:#fff}
+.row.active{border-color:var(--accent);background:var(--active)}
+.row.done{border-left:6px solid var(--ok)}
+.row .form{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.row .draft{font-size:26px;margin:2px 0 10px;word-break:break-word}
+.choices{display:flex;gap:8px}
+.choice{flex:1;border:2px solid #c3cad6;background:#fff;border-radius:8px;padding:11px 6px;font-size:16px;cursor:pointer;font-weight:600;color:var(--ink)}
+.choice.accept{color:var(--ok)}.choice.edit{color:var(--edit)}.choice.unsure{color:var(--unsure)}
+.choice[aria-pressed=true].accept{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice[aria-pressed=true].edit{background:var(--edit);border-color:var(--edit);color:#fff}
+.choice[aria-pressed=true].unsure{background:var(--unsure);border-color:var(--unsure);color:#fff}
+.sub{margin-top:10px}.sub>label{font-size:13px;color:var(--muted);display:block;margin-bottom:3px;font-weight:600}
+.linkbtn{background:none;border:none;color:var(--accent);cursor:pointer;font-size:13px;padding:6px 0 0;text-decoration:underline}
+.issue{color:var(--bad);font-size:13px;margin-top:6px}
+.err{color:var(--bad);font-size:14px;margin-top:8px}
+.nav{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap}
+.hint{font-size:13px;color:var(--muted)}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;font-size:12px;background:#fafafa}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;margin-top:8px}
+.cell{border:1px solid var(--line);border-radius:6px;padding:6px 4px;font-size:12px;text-align:center;cursor:pointer;background:#eceff3;line-height:1.25}
+.cell.done{background:#c8e6c9}.cell.part{background:#ffe0b2}.cell.cur{outline:3px solid var(--accent)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-start;justify-content:center;padding:16px;z-index:10;overflow:auto}
+.modal.open{display:flex}.modal .card{max-width:820px;width:100%}
+.banner{background:#fff3cd;border:1px solid #ffe08a;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:14px}
+.big{font-size:18px}
+ul.tight li,ol.tight li{margin:4px 0}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.stat{flex:1;min-width:110px;border:1px solid var(--line);border-radius:8px;padding:8px;text-align:center}.stat b{display:block;font-size:22px}
+.hidden{display:none!important}
+@media (max-width:560px){main{padding:8px}.card{padding:12px}.row .draft{font-size:23px}.choice{font-size:15px;padding:12px 2px}h1{font-size:20px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="title">Bangla names review</div>
+  <span id="pos" class="pos"></span>
+  <span id="sync" class="sync hidden" role="status" aria-live="polite"></span>
+  <button id="btnGrid" class="hidden" type="button">All screens</button>
+  <a id="lnkExport" class="hidden" href="#">Download my answers</a>
+  <div class="bar"><div id="barFill"></div></div>
+</header>
+<main>
+  <div id="modeBanner" class="banner hidden"></div>
+
+  <section id="pMsg" class="hidden">
+    <div class="card"><h1 id="msgTitle"></h1><p id="msgText"></p>
+      <button id="btnMsgRetry" class="btn primary hidden" type="button">Try again</button></div>
+  </section>
+
+  <section id="pAbout" class="hidden">
+    <div class="card">
+      <h1>Check Bangla names for satellite images</h1>
+      <p id="whoami" class="muted"></p>
+      <p>An AI wrote Bangla names for 80 kinds of places seen in satellite images (forest, river, airport…) and 12 short sentences. Please check each one. Your answers are <b>saved automatically</b>. You can close the page anytime and continue later with the same link, even on another device.</p>
+      <h2>For each item, click one button</h2>
+      <ul class="tight">
+        <li><b style="color:var(--ok)">✓ Accept</b>: correct and natural.</li>
+        <li><b style="color:var(--edit)">✎ Edit</b>: a box opens; type the correct version.</li>
+        <li><b style="color:var(--unsure)">? Unsure</b>: a box opens; write why you are unsure.</li>
+      </ul>
+      <h2>Ask yourself</h2>
+      <ol class="tight">
+        <li><b>Same meaning?</b> It names the same thing as the English word, not something narrower or broader. Tap "See example images" if you're unsure what the place looks like.</li>
+        <li><b>Natural?</b> Would a Bangladeshi person really say or write this?</li>
+        <li><b>Right style?</b> Formal = textbook or newspaper Bangla. Colloquial = everyday speech.</li>
+        <li><b>Correct spelling?</b></li>
+        <li><b>Banglish</b> (Bangla in English letters): is this how people type it on Facebook or Messenger? If people really use the English word (like "airport"), Accept and add a comment.</li>
+      </ol>
+      <h2>Rules</h2>
+      <ul class="tight">
+        <li>Work alone. Don't discuss your answers with the other reviewer until you've both finished.</li>
+        <li>Don't use Google Translate, ChatGPT or other AI to decide. Your own judgment is what matters.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2 style="margin-top:0">A few questions about you</h2>
+      <p class="muted">Only used to describe the reviewers in the research paper.</p>
+      <label class="field" for="fNative">Is Bangla your first language? *</label>
+      <select id="fNative"><option value="">Choose…</option><option>Yes</option><option>No</option></select>
+      <label class="field" for="fRegion">Home district or region</label><input id="fRegion" type="text" autocomplete="off">
+      <label class="field" for="fEdu">Highest education and field (e.g. BSc, CSE)</label><input id="fEdu" type="text" autocomplete="off">
+      <p><label><input id="fRules" type="checkbox"> I will work alone and won't use translation tools or AI to decide. *</label></p>
+      <button id="btnStart" class="btn primary" type="button">Start</button>
+      <div id="aboutErr" class="err"></div>
+    </div>
+  </section>
+
+  <section id="pReview" class="hidden">
+    <div class="card" id="screenHead"></div>
+    <div id="rows"></div>
+    <div class="nav">
+      <button id="btnPrev" class="btn" type="button">← Back</button>
+      <span id="navMsg" class="hint"></span>
+      <button id="btnNext" class="btn primary" type="button">Next →</button>
+    </div>
+    <p class="hint">Optional keyboard: <kbd>↑</kbd><kbd>↓</kbd> move between rows · <kbd>1</kbd> Accept · <kbd>2</kbd> Edit · <kbd>3</kbd> Unsure · <kbd>Esc</kbd> leave a text box · <kbd>Enter</kbd> next screen</p>
+  </section>
+
+  <section id="pFinish" class="hidden">
+    <div class="card">
+      <h1>Last step</h1>
+      <div id="finStats" class="stats"></div>
+      <div id="finMissing"></div>
+      <label class="field" for="fAI">Did you use any translation tool or AI to decide? *</label>
+      <select id="fAI"><option value="">Choose…</option><option>No</option><option>Yes</option></select>
+      <label class="field" for="fDiscuss">Did you discuss answers with the other reviewer before finishing? *</label>
+      <select id="fDiscuss"><option value="">Choose…</option><option>No</option><option>Yes</option></select>
+      <label class="field" for="fNotes">Any general comments (optional)</label>
+      <textarea id="fNotes" class="bn"></textarea>
+      <div class="nav"><button id="btnBackReview" class="btn" type="button">← Back to the names</button>
+        <button id="btnSubmit" class="btn primary" type="button">Finish</button></div>
+      <div id="finErr" class="err"></div>
+    </div>
+  </section>
+
+  <section id="pDone" class="hidden">
+    <div class="card">
+      <h1 id="doneTitle">Thank you!</h1>
+      <p id="doneText" class="big"></p>
+      <button id="btnChange" class="btn" type="button">Change an answer</button>
+    </div>
+  </section>
+</main>
+
+<div id="gridModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="gridTitle">
+  <div class="card">
+    <div class="nav" style="margin-top:0"><h2 id="gridTitle" style="margin:0">All screens</h2><button id="btnCloseGrid" class="btn" type="button">Close</button></div>
+    <p class="muted">Green = done · orange = started · grey = not started. Tap a screen to go there.</p>
+    <div id="grid" class="grid"></div>
+    <div class="nav"><span></span><button id="btnGoFinish" class="btn primary" type="button">Go to the last step</button></div>
+  </div>
+</div>
+
+<script>
+// ======================= SETTINGS =======================
+// Paste your Google Apps Script web-app URL between the quotes (it ends with /exec).
+// Leave it empty to try the page in "test mode" (answers stay only in your browser).
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzGG_MUf05w-5SjRtc4uGSLT4duCCSE8kdopQOIWcOKTxYWvwTBcaqfODZZQ0BrXhaR/exec";
+// ========================================================
+const DATA = {"version":"0.2","hash":"7f0e6d99fb54","screens":[{"id":"c001","kind":"concept","english":"farmland","usedIn":["UCM: agricultural","AID: Farmland","WHU-RS19: Farmland"],"items":[{"rowId":"c001-F","form":"Formal Bangla","draft":"কৃষিজমি","bn":true},{"rowId":"c001-C","form":"Colloquial Bangla","draft":"চাষের জমি","bn":true},{"rowId":"c001-BF","form":"Banglish (from formal)","draft":"krishijomi","bn":false},{"rowId":"c001-BC","form":"Banglish (from colloquial)","draft":"chasher jomi","bn":false}]},{"id":"c002","kind":"concept","english":"airplane","usedIn":["UCM: airplane","RESISC45: airplane","PatternNet: airplane"],"items":[{"rowId":"c002-F","form":"Formal Bangla","draft":"উড়োজাহাজ","bn":true},{"rowId":"c002-C","form":"Colloquial Bangla","draft":"প্লেন","bn":true},{"rowId":"c002-BF","form":"Banglish (from formal)","draft":"urojahaj","bn":false},{"rowId":"c002-BC","form":"Banglish (from colloquial)","draft":"plane","bn":false}]},{"id":"c003","kind":"concept","english":"airport","usedIn":["AID: Airport","RESISC45: airport","WHU-RS19: Airport"],"items":[{"rowId":"c003-F","form":"Formal Bangla","draft":"বিমানবন্দর","bn":true},{"rowId":"c003-C","form":"Colloquial Bangla","draft":"এয়ারপোর্ট","bn":true},{"rowId":"c003-BF","form":"Banglish (from formal)","draft":"bimanbondor","bn":false},{"rowId":"c003-BC","form":"Banglish (from colloquial)","draft":"airport","bn":false}]},{"id":"c004","kind":"concept","english":"bare land","usedIn":["AID: BareLand"],"items":[{"rowId":"c004-F","form":"Formal Bangla","draft":"অনাবাদি উন্মুক্ত ভূমি","bn":true},{"rowId":"c004-C","form":"Colloquial Bangla","draft":"ফাঁকা জমি","bn":true},{"rowId":"c004-BF","form":"Banglish (from formal)","draft":"anabadi unmukto bhumi","bn":false},{"rowId":"c004-BC","form":"Banglish (from colloquial)","draft":"faka jomi","bn":false}]},{"id":"c005","kind":"concept","english":"baseball field","usedIn":["UCM: baseballdiamond","AID: BaseballField","RESISC45: baseball_diamond","PatternNet: baseball_field"],"items":[{"rowId":"c005-F","form":"Formal Bangla","draft":"বেসবল মাঠ","bn":true},{"rowId":"c005-C","form":"Colloquial Bangla","draft":"বেসবল খেলার মাঠ","bn":true},{"rowId":"c005-BF","form":"Banglish (from formal)","draft":"baseball maath","bn":false},{"rowId":"c005-BC","form":"Banglish (from colloquial)","draft":"baseball khelar maath","bn":false}]},{"id":"c006","kind":"concept","english":"basketball court","usedIn":["RESISC45: basketball_court","PatternNet: basketball_court"],"items":[{"rowId":"c006-F","form":"Formal Bangla","draft":"বাস্কেটবল কোর্ট","bn":true},{"rowId":"c006-C","form":"Colloquial Bangla","draft":"বাস্কেটবল খেলার কোর্ট","bn":true},{"rowId":"c006-BF","form":"Banglish (from formal)","draft":"basketball court","bn":false},{"rowId":"c006-BC","form":"Banglish (from colloquial)","draft":"basketball khelar court","bn":false}]},{"id":"c007","kind":"concept","english":"beach","usedIn":["UCM: beach","AID: Beach","RESISC45: beach","WHU-RS19: Beach","PatternNet: beach"],"items":[{"rowId":"c007-F","form":"Formal Bangla","draft":"সমুদ্রসৈকত","bn":true},{"rowId":"c007-C","form":"Colloquial Bangla","draft":"সাগরপাড়","bn":true},{"rowId":"c007-BF","form":"Banglish (from formal)","draft":"shomudroshoikot","bn":false},{"rowId":"c007-BC","form":"Banglish (from colloquial)","draft":"shagorpaar","bn":false}]},{"id":"c008","kind":"concept","english":"bridge","usedIn":["AID: Bridge","RESISC45: bridge","WHU-RS19: Bridge","PatternNet: bridge"],"items":[{"rowId":"c008-F","form":"Formal Bangla","draft":"সেতু","bn":true},{"rowId":"c008-C","form":"Colloquial Bangla","draft":"ব্রিজ","bn":true},{"rowId":"c008-BF","form":"Banglish (from formal)","draft":"shetu","bn":false},{"rowId":"c008-BC","form":"Banglish (from colloquial)","draft":"bridge","bn":false}]},{"id":"c009","kind":"concept","english":"buildings","usedIn":["UCM: buildings"],"items":[{"rowId":"c009-F","form":"Formal Bangla","draft":"ভবনসমূহ","bn":true},{"rowId":"c009-C","form":"Colloquial Bangla","draft":"দালানকোঠা","bn":true},{"rowId":"c009-BF","form":"Banglish (from formal)","draft":"bhobonshomuho","bn":false},{"rowId":"c009-BC","form":"Banglish (from colloquial)","draft":"dalankotha","bn":false}]},{"id":"c010","kind":"concept","english":"chaparral","usedIn":["UCM: chaparral","RESISC45: chaparral","PatternNet: chaparral"],"items":[{"rowId":"c010-F","form":"Formal Bangla","draft":"শুষ্ক গুল্মভূমি","bn":true},{"rowId":"c010-C","form":"Colloquial Bangla","draft":"ঝোপঝাড়ে ভরা শুকনা জায়গা","bn":true},{"rowId":"c010-BF","form":"Banglish (from formal)","draft":"shushko gulmobhumi","bn":false},{"rowId":"c010-BC","form":"Banglish (from colloquial)","draft":"jhopjhare bhora shukna jayga","bn":false}]},{"id":"c011","kind":"concept","english":"dense residential area","usedIn":["UCM: denseresidential","AID: DenseResidential","RESISC45: dense_residential","PatternNet: dense_residential"],"items":[{"rowId":"c011-F","form":"Formal Bangla","draft":"ঘনবসতিপূর্ণ আবাসিক এলাকা","bn":true},{"rowId":"c011-C","form":"Colloquial Bangla","draft":"ঘিঞ্জি বাড়িঘর","bn":true},{"rowId":"c011-BF","form":"Banglish (from formal)","draft":"ghonoboshotipurno abashik elaka","bn":false},{"rowId":"c011-BC","form":"Banglish (from colloquial)","draft":"ghinji barighor","bn":false}]},{"id":"c012","kind":"concept","english":"forest","usedIn":["UCM: forest","AID: Forest","RESISC45: forest","EuroSAT: Forest","WHU-RS19: Forest","PatternNet: forest"],"items":[{"rowId":"c012-F","form":"Formal Bangla","draft":"বনাঞ্চল","bn":true},{"rowId":"c012-C","form":"Colloquial Bangla","draft":"জঙ্গল","bn":true},{"rowId":"c012-BF","form":"Banglish (from formal)","draft":"bonanchol","bn":false},{"rowId":"c012-BC","form":"Banglish (from colloquial)","draft":"jongol","bn":false}]},{"id":"c013","kind":"concept","english":"highway","usedIn":["UCM: freeway","RESISC45: freeway","EuroSAT: Highway","PatternNet: freeway"],"items":[{"rowId":"c013-F","form":"Formal Bangla","draft":"মহাসড়ক","bn":true},{"rowId":"c013-C","form":"Colloquial Bangla","draft":"হাইওয়ে","bn":true},{"rowId":"c013-BF","form":"Banglish (from formal)","draft":"mohashorok","bn":false},{"rowId":"c013-BC","form":"Banglish (from colloquial)","draft":"highway","bn":false}]},{"id":"c014","kind":"concept","english":"golf course","usedIn":["UCM: golfcourse","RESISC45: golf_course","PatternNet: golf_course"],"items":[{"rowId":"c014-F","form":"Formal Bangla","draft":"গলফ মাঠ","bn":true},{"rowId":"c014-C","form":"Colloquial Bangla","draft":"গলফ খেলার মাঠ","bn":true},{"rowId":"c014-BF","form":"Banglish (from formal)","draft":"golf maath","bn":false},{"rowId":"c014-BC","form":"Banglish (from colloquial)","draft":"golf khelar maath","bn":false}]},{"id":"c015","kind":"concept","english":"harbor","usedIn":["UCM: harbor","RESISC45: harbor","PatternNet: harbor"],"items":[{"rowId":"c015-F","form":"Formal Bangla","draft":"পোতাশ্রয়","bn":true},{"rowId":"c015-C","form":"Colloquial Bangla","draft":"নৌকা-জাহাজ ভেড়ানোর ঘাট","bn":true},{"rowId":"c015-BF","form":"Banglish (from formal)","draft":"potashroy","bn":false},{"rowId":"c015-BC","form":"Banglish (from colloquial)","draft":"nouka jahaj bheranor ghat","bn":false}]},{"id":"c016","kind":"concept","english":"intersection","usedIn":["UCM: intersection","RESISC45: intersection","PatternNet: intersection"],"items":[{"rowId":"c016-F","form":"Formal Bangla","draft":"সড়ক সংযোগস্থল","bn":true},{"rowId":"c016-C","form":"Colloquial Bangla","draft":"রাস্তার মোড়","bn":true},{"rowId":"c016-BF","form":"Banglish (from formal)","draft":"shorok shongjogsthol","bn":false},{"rowId":"c016-BC","form":"Banglish (from colloquial)","draft":"rastar mor","bn":false}]},{"id":"c017","kind":"concept","english":"medium residential area","usedIn":["UCM: mediumresidential","AID: MediumResidential","RESISC45: medium_residential"],"items":[{"rowId":"c017-F","form":"Formal Bangla","draft":"মাঝারি ঘনত্বের আবাসিক এলাকা","bn":true},{"rowId":"c017-C","form":"Colloquial Bangla","draft":"মাঝারি বসতির এলাকা","bn":true},{"rowId":"c017-BF","form":"Banglish (from formal)","draft":"majhari ghonotter abashik elaka","bn":false},{"rowId":"c017-BC","form":"Banglish (from colloquial)","draft":"majhari boshotir elaka","bn":false}]},{"id":"c018","kind":"concept","english":"mobile home park","usedIn":["UCM: mobilehomepark","RESISC45: mobile_home_park","PatternNet: mobile_home_park"],"items":[{"rowId":"c018-F","form":"Formal Bangla","draft":"ভ্রাম্যমাণ গৃহের এলাকা","bn":true},{"rowId":"c018-C","form":"Colloquial Bangla","draft":"মোবাইল হোম পার্ক","bn":true},{"rowId":"c018-BF","form":"Banglish (from formal)","draft":"bhrammoman griher elaka","bn":false},{"rowId":"c018-BC","form":"Banglish (from colloquial)","draft":"mobile home park","bn":false}]},{"id":"c019","kind":"concept","english":"overpass","usedIn":["UCM: overpass","RESISC45: overpass","PatternNet: overpass"],"items":[{"rowId":"c019-F","form":"Formal Bangla","draft":"উড়ালসড়ক","bn":true},{"rowId":"c019-C","form":"Colloquial Bangla","draft":"ফ্লাইওভার","bn":true},{"rowId":"c019-BF","form":"Banglish (from formal)","draft":"uralshorok","bn":false},{"rowId":"c019-BC","form":"Banglish (from colloquial)","draft":"flyover","bn":false}]},{"id":"c020","kind":"concept","english":"parking lot","usedIn":["UCM: parkinglot","AID: Parking","RESISC45: parking_lot","WHU-RS19: Parking","PatternNet: parking_lot"],"items":[{"rowId":"c020-F","form":"Formal Bangla","draft":"যানবাহন রাখার স্থান","bn":true},{"rowId":"c020-C","form":"Colloquial Bangla","draft":"পার্কিং","bn":true},{"rowId":"c020-BF","form":"Banglish (from formal)","draft":"janbahon rakhar sthan","bn":false},{"rowId":"c020-BC","form":"Banglish (from colloquial)","draft":"parking","bn":false}]},{"id":"c021","kind":"concept","english":"river","usedIn":["UCM: river","AID: River","RESISC45: river","EuroSAT: River","WHU-RS19: River","PatternNet: river"],"items":[{"rowId":"c021-F","form":"Formal Bangla","draft":"নদী","bn":true},{"rowId":"c021-C","form":"Colloquial Bangla","draft":"নদী","bn":true},{"rowId":"c021-BF","form":"Banglish (from formal)","draft":"nodi","bn":false},{"rowId":"c021-BC","form":"Banglish (from colloquial)","draft":"nodi","bn":false}]},{"id":"c022","kind":"concept","english":"runway","usedIn":["UCM: runway","RESISC45: runway","PatternNet: runway"],"items":[{"rowId":"c022-F","form":"Formal Bangla","draft":"বিমান উড্ডয়ন পথ","bn":true},{"rowId":"c022-C","form":"Colloquial Bangla","draft":"রানওয়ে","bn":true},{"rowId":"c022-BF","form":"Banglish (from formal)","draft":"biman uddoyon poth","bn":false},{"rowId":"c022-BC","form":"Banglish (from colloquial)","draft":"runway","bn":false}]},{"id":"c023","kind":"concept","english":"sparse residential area","usedIn":["UCM: sparseresidential","AID: SparseResidential","RESISC45: sparse_residential","PatternNet: sparse_residential"],"items":[{"rowId":"c023-F","form":"Formal Bangla","draft":"স্বল্প ঘনত্বের আবাসিক এলাকা","bn":true},{"rowId":"c023-C","form":"Colloquial Bangla","draft":"ছাড়া ছাড়া বাড়িঘর","bn":true},{"rowId":"c023-BF","form":"Banglish (from formal)","draft":"sholpo ghonotter abashik elaka","bn":false},{"rowId":"c023-BC","form":"Banglish (from colloquial)","draft":"chara chara barighor","bn":false}]},{"id":"c024","kind":"concept","english":"storage tanks","usedIn":["UCM: storagetanks","AID: StorageTanks","RESISC45: storage_tank","PatternNet: storage_tank"],"items":[{"rowId":"c024-F","form":"Formal Bangla","draft":"মজুত ট্যাংক","bn":true},{"rowId":"c024-C","form":"Colloquial Bangla","draft":"বড় বড় ট্যাংকি","bn":true},{"rowId":"c024-BF","form":"Banglish (from formal)","draft":"mojut tank","bn":false},{"rowId":"c024-BC","form":"Banglish (from colloquial)","draft":"boro boro tanki","bn":false}]},{"id":"c025","kind":"concept","english":"tennis court","usedIn":["UCM: tenniscourt","RESISC45: tennis_court","PatternNet: tennis_court"],"items":[{"rowId":"c025-F","form":"Formal Bangla","draft":"টেনিস কোর্ট","bn":true},{"rowId":"c025-C","form":"Colloquial Bangla","draft":"টেনিস খেলার কোর্ট","bn":true},{"rowId":"c025-BF","form":"Banglish (from formal)","draft":"tennis court","bn":false},{"rowId":"c025-BC","form":"Banglish (from colloquial)","draft":"tennis khelar court","bn":false}]},{"id":"c026","kind":"concept","english":"city center","usedIn":["AID: Center"],"items":[{"rowId":"c026-F","form":"Formal Bangla","draft":"নগরকেন্দ্র","bn":true},{"rowId":"c026-C","form":"Colloquial Bangla","draft":"শহরের মাঝখান","bn":true},{"rowId":"c026-BF","form":"Banglish (from formal)","draft":"nogorkendro","bn":false},{"rowId":"c026-BC","form":"Banglish (from colloquial)","draft":"shohorer majhkhan","bn":false}]},{"id":"c027","kind":"concept","english":"church","usedIn":["AID: Church","RESISC45: church"],"items":[{"rowId":"c027-F","form":"Formal Bangla","draft":"গির্জা","bn":true},{"rowId":"c027-C","form":"Colloquial Bangla","draft":"গির্জা","bn":true},{"rowId":"c027-BF","form":"Banglish (from formal)","draft":"girja","bn":false},{"rowId":"c027-BC","form":"Banglish (from colloquial)","draft":"girja","bn":false}]},{"id":"c028","kind":"concept","english":"commercial area","usedIn":["AID: Commercial","RESISC45: commercial_area","WHU-RS19: Commercial"],"items":[{"rowId":"c028-F","form":"Formal Bangla","draft":"বাণিজ্যিক এলাকা","bn":true},{"rowId":"c028-C","form":"Colloquial Bangla","draft":"দোকানপাট আর মার্কেটের এলাকা","bn":true},{"rowId":"c028-BF","form":"Banglish (from formal)","draft":"banijjik elaka","bn":false},{"rowId":"c028-BC","form":"Banglish (from colloquial)","draft":"dokanpat ar marketer elaka","bn":false}]},{"id":"c029","kind":"concept","english":"desert","usedIn":["AID: Desert","RESISC45: desert","WHU-RS19: Desert"],"items":[{"rowId":"c029-F","form":"Formal Bangla","draft":"মরুভূমি","bn":true},{"rowId":"c029-C","form":"Colloquial Bangla","draft":"মরুভূমি","bn":true},{"rowId":"c029-BF","form":"Banglish (from formal)","draft":"morubhumi","bn":false},{"rowId":"c029-BC","form":"Banglish (from colloquial)","draft":"morubhumi","bn":false}]},{"id":"c030","kind":"concept","english":"industrial area","usedIn":["AID: Industrial","RESISC45: industrial_area","EuroSAT: Industrial","WHU-RS19: Industrial"],"items":[{"rowId":"c030-F","form":"Formal Bangla","draft":"শিল্পাঞ্চল","bn":true},{"rowId":"c030-C","form":"Colloquial Bangla","draft":"কলকারখানার এলাকা","bn":true},{"rowId":"c030-BF","form":"Banglish (from formal)","draft":"shilpanchol","bn":false},{"rowId":"c030-BC","form":"Banglish (from colloquial)","draft":"kolkarkhanar elaka","bn":false}]},{"id":"c031","kind":"concept","english":"meadow","usedIn":["AID: Meadow","RESISC45: meadow","WHU-RS19: Meadow"],"items":[{"rowId":"c031-F","form":"Formal Bangla","draft":"তৃণভূমি","bn":true},{"rowId":"c031-C","form":"Colloquial Bangla","draft":"ঘাসের মাঠ","bn":true},{"rowId":"c031-BF","form":"Banglish (from formal)","draft":"trinobhumi","bn":false},{"rowId":"c031-BC","form":"Banglish (from colloquial)","draft":"ghaser maath","bn":false}]},{"id":"c032","kind":"concept","english":"mountain","usedIn":["AID: Mountain","RESISC45: mountain","WHU-RS19: Mountain"],"items":[{"rowId":"c032-F","form":"Formal Bangla","draft":"পর্বত","bn":true},{"rowId":"c032-C","form":"Colloquial Bangla","draft":"পাহাড়","bn":true},{"rowId":"c032-BF","form":"Banglish (from formal)","draft":"porbot","bn":false},{"rowId":"c032-BC","form":"Banglish (from colloquial)","draft":"pahar","bn":false}]},{"id":"c033","kind":"concept","english":"park","usedIn":["AID: Park","WHU-RS19: Park"],"items":[{"rowId":"c033-F","form":"Formal Bangla","draft":"উদ্যান","bn":true},{"rowId":"c033-C","form":"Colloquial Bangla","draft":"পার্ক","bn":true},{"rowId":"c033-BF","form":"Banglish (from formal)","draft":"uddan","bn":false},{"rowId":"c033-BC","form":"Banglish (from colloquial)","draft":"park","bn":false}]},{"id":"c034","kind":"concept","english":"playground","usedIn":["AID: Playground"],"items":[{"rowId":"c034-F","form":"Formal Bangla","draft":"ক্রীড়াক্ষেত্র","bn":true},{"rowId":"c034-C","form":"Colloquial Bangla","draft":"খেলার মাঠ","bn":true},{"rowId":"c034-BF","form":"Banglish (from formal)","draft":"krirakkhetro","bn":false},{"rowId":"c034-BC","form":"Banglish (from colloquial)","draft":"khelar maath","bn":false}]},{"id":"c035","kind":"concept","english":"pond","usedIn":["AID: Pond","WHU-RS19: Pond"],"items":[{"rowId":"c035-F","form":"Formal Bangla","draft":"পুকুর","bn":true},{"rowId":"c035-C","form":"Colloquial Bangla","draft":"পুকুর","bn":true},{"rowId":"c035-BF","form":"Banglish (from formal)","draft":"pukur","bn":false},{"rowId":"c035-BC","form":"Banglish (from colloquial)","draft":"pukur","bn":false}]},{"id":"c036","kind":"concept","english":"port","usedIn":["AID: Port","WHU-RS19: Port"],"items":[{"rowId":"c036-F","form":"Formal Bangla","draft":"সমুদ্রবন্দর","bn":true},{"rowId":"c036-C","form":"Colloquial Bangla","draft":"জাহাজের বন্দর","bn":true},{"rowId":"c036-BF","form":"Banglish (from formal)","draft":"shomudrobondor","bn":false},{"rowId":"c036-BC","form":"Banglish (from colloquial)","draft":"jahajer bondor","bn":false}]},{"id":"c037","kind":"concept","english":"railway station","usedIn":["AID: RailwayStation","RESISC45: railway_station","WHU-RS19: railwayStation"],"items":[{"rowId":"c037-F","form":"Formal Bangla","draft":"রেলওয়ে স্টেশন","bn":true},{"rowId":"c037-C","form":"Colloquial Bangla","draft":"ইস্টিশন","bn":true},{"rowId":"c037-BF","form":"Banglish (from formal)","draft":"railway station","bn":false},{"rowId":"c037-BC","form":"Banglish (from colloquial)","draft":"istishon","bn":false}]},{"id":"c038","kind":"concept","english":"resort","usedIn":["AID: Resort"],"items":[{"rowId":"c038-F","form":"Formal Bangla","draft":"অবকাশকেন্দ্র","bn":true},{"rowId":"c038-C","form":"Colloquial Bangla","draft":"রিসোর্ট","bn":true},{"rowId":"c038-BF","form":"Banglish (from formal)","draft":"obokashkendro","bn":false},{"rowId":"c038-BC","form":"Banglish (from colloquial)","draft":"resort","bn":false}]},{"id":"c039","kind":"concept","english":"school","usedIn":["AID: School"],"items":[{"rowId":"c039-F","form":"Formal Bangla","draft":"বিদ্যালয়","bn":true},{"rowId":"c039-C","form":"Colloquial Bangla","draft":"স্কুল","bn":true},{"rowId":"c039-BF","form":"Banglish (from formal)","draft":"biddaloy","bn":false},{"rowId":"c039-BC","form":"Banglish (from colloquial)","draft":"school","bn":false}]},{"id":"c040","kind":"concept","english":"square","usedIn":["AID: Square"],"items":[{"rowId":"c040-F","form":"Formal Bangla","draft":"নগর চত্বর","bn":true},{"rowId":"c040-C","form":"Colloquial Bangla","draft":"খোলা চত্বর","bn":true},{"rowId":"c040-BF","form":"Banglish (from formal)","draft":"nogor chottor","bn":false},{"rowId":"c040-BC","form":"Banglish (from colloquial)","draft":"khola chottor","bn":false}]},{"id":"c041","kind":"concept","english":"stadium","usedIn":["AID: Stadium","RESISC45: stadium"],"items":[{"rowId":"c041-F","form":"Formal Bangla","draft":"ক্রীড়া স্টেডিয়াম","bn":true},{"rowId":"c041-C","form":"Colloquial Bangla","draft":"স্টেডিয়াম","bn":true},{"rowId":"c041-BF","form":"Banglish (from formal)","draft":"krira stadium","bn":false},{"rowId":"c041-BC","form":"Banglish (from colloquial)","draft":"stadium","bn":false}]},{"id":"c042","kind":"concept","english":"viaduct","usedIn":["AID: Viaduct","WHU-RS19: Viaduct"],"items":[{"rowId":"c042-F","form":"Formal Bangla","draft":"উঁচু সেতুপথ","bn":true},{"rowId":"c042-C","form":"Colloquial Bangla","draft":"উঁচু লম্বা ব্রিজ","bn":true},{"rowId":"c042-BF","form":"Banglish (from formal)","draft":"unchu shetupoth","bn":false},{"rowId":"c042-BC","form":"Banglish (from colloquial)","draft":"unchu lomba bridge","bn":false}]},{"id":"c043","kind":"concept","english":"circular farmland","usedIn":["RESISC45: circular_farmland"],"items":[{"rowId":"c043-F","form":"Formal Bangla","draft":"বৃত্তাকার কৃষিজমি","bn":true},{"rowId":"c043-C","form":"Colloquial Bangla","draft":"গোল গোল চাষের জমি","bn":true},{"rowId":"c043-BF","form":"Banglish (from formal)","draft":"brittakar krishijomi","bn":false},{"rowId":"c043-BC","form":"Banglish (from colloquial)","draft":"gol gol chasher jomi","bn":false}]},{"id":"c044","kind":"concept","english":"cloud","usedIn":["RESISC45: cloud"],"items":[{"rowId":"c044-F","form":"Formal Bangla","draft":"মেঘ","bn":true},{"rowId":"c044-C","form":"Colloquial Bangla","draft":"মেঘ","bn":true},{"rowId":"c044-BF","form":"Banglish (from formal)","draft":"megh","bn":false},{"rowId":"c044-BC","form":"Banglish (from colloquial)","draft":"megh","bn":false}]},{"id":"c045","kind":"concept","english":"ground track field","usedIn":["RESISC45: ground_track_field"],"items":[{"rowId":"c045-F","form":"Formal Bangla","draft":"দৌড়পথসহ ক্রীড়ামাঠ","bn":true},{"rowId":"c045-C","form":"Colloquial Bangla","draft":"দৌড়ের ট্র্যাকওয়ালা মাঠ","bn":true},{"rowId":"c045-BF","form":"Banglish (from formal)","draft":"dourpothshoho kriramaath","bn":false},{"rowId":"c045-BC","form":"Banglish (from colloquial)","draft":"dourer trackwala maath","bn":false}]},{"id":"c046","kind":"concept","english":"island","usedIn":["RESISC45: island"],"items":[{"rowId":"c046-F","form":"Formal Bangla","draft":"দ্বীপ","bn":true},{"rowId":"c046-C","form":"Colloquial Bangla","draft":"দ্বীপ","bn":true},{"rowId":"c046-BF","form":"Banglish (from formal)","draft":"dweep","bn":false},{"rowId":"c046-BC","form":"Banglish (from colloquial)","draft":"dweep","bn":false}]},{"id":"c047","kind":"concept","english":"lake","usedIn":["RESISC45: lake"],"items":[{"rowId":"c047-F","form":"Formal Bangla","draft":"হ্রদ","bn":true},{"rowId":"c047-C","form":"Colloquial Bangla","draft":"লেক","bn":true},{"rowId":"c047-BF","form":"Banglish (from formal)","draft":"hrod","bn":false},{"rowId":"c047-BC","form":"Banglish (from colloquial)","draft":"lake","bn":false}]},{"id":"c048","kind":"concept","english":"palace","usedIn":["RESISC45: palace"],"items":[{"rowId":"c048-F","form":"Formal Bangla","draft":"প্রাসাদ","bn":true},{"rowId":"c048-C","form":"Colloquial Bangla","draft":"রাজবাড়ি","bn":true},{"rowId":"c048-BF","form":"Banglish (from formal)","draft":"prashad","bn":false},{"rowId":"c048-BC","form":"Banglish (from colloquial)","draft":"rajbari","bn":false}]},{"id":"c049","kind":"concept","english":"railway","usedIn":["RESISC45: railway","PatternNet: railway"],"items":[{"rowId":"c049-F","form":"Formal Bangla","draft":"রেলপথ","bn":true},{"rowId":"c049-C","form":"Colloquial Bangla","draft":"রেললাইন","bn":true},{"rowId":"c049-BF","form":"Banglish (from formal)","draft":"relpoth","bn":false},{"rowId":"c049-BC","form":"Banglish (from colloquial)","draft":"rail line","bn":false}]},{"id":"c050","kind":"concept","english":"rectangular farmland","usedIn":["RESISC45: rectangular_farmland"],"items":[{"rowId":"c050-F","form":"Formal Bangla","draft":"আয়তাকার কৃষিজমি","bn":true},{"rowId":"c050-C","form":"Colloquial Bangla","draft":"চারকোনা চাষের জমি","bn":true},{"rowId":"c050-BF","form":"Banglish (from formal)","draft":"ayotakar krishijomi","bn":false},{"rowId":"c050-BC","form":"Banglish (from colloquial)","draft":"charkona chasher jomi","bn":false}]},{"id":"c051","kind":"concept","english":"roundabout","usedIn":["RESISC45: roundabout"],"items":[{"rowId":"c051-F","form":"Formal Bangla","draft":"গোলচত্বর","bn":true},{"rowId":"c051-C","form":"Colloquial Bangla","draft":"গোলচক্কর","bn":true},{"rowId":"c051-BF","form":"Banglish (from formal)","draft":"golchottor","bn":false},{"rowId":"c051-BC","form":"Banglish (from colloquial)","draft":"golchokkor","bn":false}]},{"id":"c052","kind":"concept","english":"sea ice","usedIn":["RESISC45: sea_ice"],"items":[{"rowId":"c052-F","form":"Formal Bangla","draft":"সামুদ্রিক বরফ","bn":true},{"rowId":"c052-C","form":"Colloquial Bangla","draft":"সাগরের বরফ","bn":true},{"rowId":"c052-BF","form":"Banglish (from formal)","draft":"shamudrik borof","bn":false},{"rowId":"c052-BC","form":"Banglish (from colloquial)","draft":"shagorer borof","bn":false}]},{"id":"c053","kind":"concept","english":"ship","usedIn":["RESISC45: ship"],"items":[{"rowId":"c053-F","form":"Formal Bangla","draft":"জাহাজ","bn":true},{"rowId":"c053-C","form":"Colloquial Bangla","draft":"জাহাজ","bn":true},{"rowId":"c053-BF","form":"Banglish (from formal)","draft":"jahaj","bn":false},{"rowId":"c053-BC","form":"Banglish (from colloquial)","draft":"jahaj","bn":false}]},{"id":"c054","kind":"concept","english":"snow-covered mountain","usedIn":["RESISC45: snowberg"],"items":[{"rowId":"c054-F","form":"Formal Bangla","draft":"তুষারাবৃত পর্বত","bn":true},{"rowId":"c054-C","form":"Colloquial Bangla","draft":"বরফে ঢাকা পাহাড়","bn":true},{"rowId":"c054-BF","form":"Banglish (from formal)","draft":"tusharabrito porbot","bn":false},{"rowId":"c054-BC","form":"Banglish (from colloquial)","draft":"borofe dhaka pahar","bn":false}]},{"id":"c055","kind":"concept","english":"terraced farmland","usedIn":["RESISC45: terrace"],"items":[{"rowId":"c055-F","form":"Formal Bangla","draft":"সোপান কৃষিভূমি","bn":true},{"rowId":"c055-C","form":"Colloquial Bangla","draft":"পাহাড়ের গায়ে ধাপে ধাপে চাষ","bn":true},{"rowId":"c055-BF","form":"Banglish (from formal)","draft":"shopan krishibhumi","bn":false},{"rowId":"c055-BC","form":"Banglish (from colloquial)","draft":"paharer gaye dhape dhape chash","bn":false}]},{"id":"c056","kind":"concept","english":"thermal power station","usedIn":["RESISC45: thermal_power_station"],"items":[{"rowId":"c056-F","form":"Formal Bangla","draft":"তাপবিদ্যুৎ কেন্দ্র","bn":true},{"rowId":"c056-C","form":"Colloquial Bangla","draft":"বিদ্যুৎকেন্দ্র","bn":true},{"rowId":"c056-BF","form":"Banglish (from formal)","draft":"tapbiddut kendro","bn":false},{"rowId":"c056-BC","form":"Banglish (from colloquial)","draft":"biddutkendro","bn":false}]},{"id":"c057","kind":"concept","english":"wetland","usedIn":["RESISC45: wetland"],"items":[{"rowId":"c057-F","form":"Formal Bangla","draft":"জলাভূমি","bn":true},{"rowId":"c057-C","form":"Colloquial Bangla","draft":"বিল","bn":true},{"rowId":"c057-BF","form":"Banglish (from formal)","draft":"jolabhumi","bn":false},{"rowId":"c057-BC","form":"Banglish (from colloquial)","draft":"beel","bn":false}]},{"id":"c058","kind":"concept","english":"annual crop land","usedIn":["EuroSAT: AnnualCrop"],"items":[{"rowId":"c058-F","form":"Formal Bangla","draft":"একবর্ষজীবী ফসলের জমি","bn":true},{"rowId":"c058-C","form":"Colloquial Bangla","draft":"মৌসুমি ফসলের খেত","bn":true},{"rowId":"c058-BF","form":"Banglish (from formal)","draft":"ekborshojibi fosoler jomi","bn":false},{"rowId":"c058-BC","form":"Banglish (from colloquial)","draft":"moushumi fosoler khet","bn":false}]},{"id":"c059","kind":"concept","english":"herbaceous vegetation","usedIn":["EuroSAT: HerbaceousVegetation"],"items":[{"rowId":"c059-F","form":"Formal Bangla","draft":"তৃণ ও গুল্মজাতীয় উদ্ভিদ","bn":true},{"rowId":"c059-C","form":"Colloquial Bangla","draft":"ঘাস আর লতাপাতা","bn":true},{"rowId":"c059-BF","form":"Banglish (from formal)","draft":"trino o gulmojatiyo udbhid","bn":false},{"rowId":"c059-BC","form":"Banglish (from colloquial)","draft":"ghash ar latapata","bn":false}]},{"id":"c060","kind":"concept","english":"pasture","usedIn":["EuroSAT: Pasture"],"items":[{"rowId":"c060-F","form":"Formal Bangla","draft":"চারণভূমি","bn":true},{"rowId":"c060-C","form":"Colloquial Bangla","draft":"গরু চরানোর মাঠ","bn":true},{"rowId":"c060-BF","form":"Banglish (from formal)","draft":"charonbhumi","bn":false},{"rowId":"c060-BC","form":"Banglish (from colloquial)","draft":"goru choranor maath","bn":false}]},{"id":"c061","kind":"concept","english":"permanent crop land","usedIn":["EuroSAT: PermanentCrop"],"items":[{"rowId":"c061-F","form":"Formal Bangla","draft":"বহুবর্ষজীবী ফসলের বাগান","bn":true},{"rowId":"c061-C","form":"Colloquial Bangla","draft":"ফলের বাগান","bn":true},{"rowId":"c061-BF","form":"Banglish (from formal)","draft":"bohuborshojibi fosoler bagan","bn":false},{"rowId":"c061-BC","form":"Banglish (from colloquial)","draft":"foler bagan","bn":false}]},{"id":"c062","kind":"concept","english":"residential area","usedIn":["EuroSAT: Residential","WHU-RS19: Residential"],"items":[{"rowId":"c062-F","form":"Formal Bangla","draft":"আবাসিক এলাকা","bn":true},{"rowId":"c062-C","form":"Colloquial Bangla","draft":"বাড়িঘরের এলাকা","bn":true},{"rowId":"c062-BF","form":"Banglish (from formal)","draft":"abashik elaka","bn":false},{"rowId":"c062-BC","form":"Banglish (from colloquial)","draft":"barighorer elaka","bn":false}]},{"id":"c063","kind":"concept","english":"sea or lake","usedIn":["EuroSAT: SeaLake"],"items":[{"rowId":"c063-F","form":"Formal Bangla","draft":"সমুদ্র বা হ্রদ","bn":true},{"rowId":"c063-C","form":"Colloquial Bangla","draft":"সাগর বা বড় জলাশয়","bn":true},{"rowId":"c063-BF","form":"Banglish (from formal)","draft":"shomudro ba hrod","bn":false},{"rowId":"c063-BC","form":"Banglish (from colloquial)","draft":"shagor ba boro jolashoy","bn":false}]},{"id":"c064","kind":"concept","english":"football field","usedIn":["WHU-RS19: footballField","PatternNet: football_field"],"items":[{"rowId":"c064-F","form":"Formal Bangla","draft":"ফুটবল মাঠ","bn":true},{"rowId":"c064-C","form":"Colloquial Bangla","draft":"ফুটবল খেলার মাঠ","bn":true},{"rowId":"c064-BF","form":"Banglish (from formal)","draft":"football maath","bn":false},{"rowId":"c064-BC","form":"Banglish (from colloquial)","draft":"football khelar maath","bn":false}]},{"id":"c065","kind":"concept","english":"cemetery","usedIn":["PatternNet: cemetery"],"items":[{"rowId":"c065-F","form":"Formal Bangla","draft":"কবরস্থান","bn":true},{"rowId":"c065-C","form":"Colloquial Bangla","draft":"গোরস্থান","bn":true},{"rowId":"c065-BF","form":"Banglish (from formal)","draft":"kobrosthan","bn":false},{"rowId":"c065-BC","form":"Banglish (from colloquial)","draft":"gorosthan","bn":false}]},{"id":"c066","kind":"concept","english":"christmas tree farm","usedIn":["PatternNet: christmas_tree_farm"],"items":[{"rowId":"c066-F","form":"Formal Bangla","draft":"ক্রিসমাস ট্রি খামার","bn":true},{"rowId":"c066-C","form":"Colloquial Bangla","draft":"ক্রিসমাস গাছের বাগান","bn":true},{"rowId":"c066-BF","form":"Banglish (from formal)","draft":"christmas tree khamar","bn":false},{"rowId":"c066-BC","form":"Banglish (from colloquial)","draft":"christmas gacher bagan","bn":false}]},{"id":"c067","kind":"concept","english":"closed road","usedIn":["PatternNet: closed_road"],"items":[{"rowId":"c067-F","form":"Formal Bangla","draft":"বন্ধ সড়ক","bn":true},{"rowId":"c067-C","form":"Colloquial Bangla","draft":"বন্ধ রাস্তা","bn":true},{"rowId":"c067-BF","form":"Banglish (from formal)","draft":"bondho shorok","bn":false},{"rowId":"c067-BC","form":"Banglish (from colloquial)","draft":"bondho rasta","bn":false}]},{"id":"c068","kind":"concept","english":"coastal mansion","usedIn":["PatternNet: coastal_mansion"],"items":[{"rowId":"c068-F","form":"Formal Bangla","draft":"উপকূলীয় অট্টালিকা","bn":true},{"rowId":"c068-C","form":"Colloquial Bangla","draft":"সাগরপাড়ের বিশাল বাড়ি","bn":true},{"rowId":"c068-BF","form":"Banglish (from formal)","draft":"upokuliyo ottalika","bn":false},{"rowId":"c068-BC","form":"Banglish (from colloquial)","draft":"shagorpaarer bishal bari","bn":false}]},{"id":"c069","kind":"concept","english":"crosswalk","usedIn":["PatternNet: crosswalk"],"items":[{"rowId":"c069-F","form":"Formal Bangla","draft":"পথচারী পারাপার","bn":true},{"rowId":"c069-C","form":"Colloquial Bangla","draft":"জেব্রা ক্রসিং","bn":true},{"rowId":"c069-BF","form":"Banglish (from formal)","draft":"pothchari parapar","bn":false},{"rowId":"c069-BC","form":"Banglish (from colloquial)","draft":"zebra crossing","bn":false}]},{"id":"c070","kind":"concept","english":"ferry terminal","usedIn":["PatternNet: ferry_terminal"],"items":[{"rowId":"c070-F","form":"Formal Bangla","draft":"ফেরি টার্মিনাল","bn":true},{"rowId":"c070-C","form":"Colloquial Bangla","draft":"ফেরিঘাট","bn":true},{"rowId":"c070-BF","form":"Banglish (from formal)","draft":"ferry terminal","bn":false},{"rowId":"c070-BC","form":"Banglish (from colloquial)","draft":"ferryghat","bn":false}]},{"id":"c071","kind":"concept","english":"nursing home","usedIn":["PatternNet: nursing_home"],"items":[{"rowId":"c071-F","form":"Formal Bangla","draft":"প্রবীণ সেবাকেন্দ্র","bn":true},{"rowId":"c071-C","form":"Colloquial Bangla","draft":"বৃদ্ধাশ্রম","bn":true},{"rowId":"c071-BF","form":"Banglish (from formal)","draft":"probin shebakendro","bn":false},{"rowId":"c071-BC","form":"Banglish (from colloquial)","draft":"briddhashrom","bn":false}]},{"id":"c072","kind":"concept","english":"oil and gas field","usedIn":["PatternNet: oil_gas_field"],"items":[{"rowId":"c072-F","form":"Formal Bangla","draft":"তেল-গ্যাসক্ষেত্র","bn":true},{"rowId":"c072-C","form":"Colloquial Bangla","draft":"গ্যাসফিল্ড","bn":true},{"rowId":"c072-BF","form":"Banglish (from formal)","draft":"tel gas khetro","bn":false},{"rowId":"c072-BC","form":"Banglish (from colloquial)","draft":"gas field","bn":false}]},{"id":"c073","kind":"concept","english":"oil well","usedIn":["PatternNet: oil_well"],"items":[{"rowId":"c073-F","form":"Formal Bangla","draft":"তেলকূপ","bn":true},{"rowId":"c073-C","form":"Colloquial Bangla","draft":"তেলের কূপ","bn":true},{"rowId":"c073-BF","form":"Banglish (from formal)","draft":"telkup","bn":false},{"rowId":"c073-BC","form":"Banglish (from colloquial)","draft":"teler kup","bn":false}]},{"id":"c074","kind":"concept","english":"parking space","usedIn":["PatternNet: parking_space"],"items":[{"rowId":"c074-F","form":"Formal Bangla","draft":"চিহ্নিত পার্কিং স্থান","bn":true},{"rowId":"c074-C","form":"Colloquial Bangla","draft":"পার্কিংয়ের দাগকাটা ঘর","bn":true},{"rowId":"c074-BF","form":"Banglish (from formal)","draft":"chihnito parking sthan","bn":false},{"rowId":"c074-BC","form":"Banglish (from colloquial)","draft":"parkinger dagkata ghor","bn":false}]},{"id":"c075","kind":"concept","english":"runway marking","usedIn":["PatternNet: runway_marking"],"items":[{"rowId":"c075-F","form":"Formal Bangla","draft":"উড্ডয়ন পথের চিহ্ন","bn":true},{"rowId":"c075-C","form":"Colloquial Bangla","draft":"রানওয়ের দাগ","bn":true},{"rowId":"c075-BF","form":"Banglish (from formal)","draft":"uddoyon pother chihno","bn":false},{"rowId":"c075-BC","form":"Banglish (from colloquial)","draft":"runwayer dag","bn":false}]},{"id":"c076","kind":"concept","english":"shipping yard","usedIn":["PatternNet: shipping_yard"],"items":[{"rowId":"c076-F","form":"Formal Bangla","draft":"কনটেইনার ইয়ার্ড","bn":true},{"rowId":"c076-C","form":"Colloquial Bangla","draft":"কনটেইনার রাখার জায়গা","bn":true},{"rowId":"c076-BF","form":"Banglish (from formal)","draft":"container yard","bn":false},{"rowId":"c076-BC","form":"Banglish (from colloquial)","draft":"container rakhar jayga","bn":false}]},{"id":"c077","kind":"concept","english":"solar panel","usedIn":["PatternNet: solar_panel"],"items":[{"rowId":"c077-F","form":"Formal Bangla","draft":"সৌর প্যানেল","bn":true},{"rowId":"c077-C","form":"Colloquial Bangla","draft":"সোলার প্যানেল","bn":true},{"rowId":"c077-BF","form":"Banglish (from formal)","draft":"shour panel","bn":false},{"rowId":"c077-BC","form":"Banglish (from colloquial)","draft":"solar panel","bn":false}]},{"id":"c078","kind":"concept","english":"swimming pool","usedIn":["PatternNet: swimming_pool"],"items":[{"rowId":"c078-F","form":"Formal Bangla","draft":"সাঁতারের পুল","bn":true},{"rowId":"c078-C","form":"Colloquial Bangla","draft":"সুইমিং পুল","bn":true},{"rowId":"c078-BF","form":"Banglish (from formal)","draft":"shataarer pool","bn":false},{"rowId":"c078-BC","form":"Banglish (from colloquial)","draft":"swimming pool","bn":false}]},{"id":"c079","kind":"concept","english":"transformer station","usedIn":["PatternNet: transformer_station"],"items":[{"rowId":"c079-F","form":"Formal Bangla","draft":"বিদ্যুৎ উপকেন্দ্র","bn":true},{"rowId":"c079-C","form":"Colloquial Bangla","draft":"বিদ্যুতের সাবস্টেশন","bn":true},{"rowId":"c079-BF","form":"Banglish (from formal)","draft":"biddut upokendro","bn":false},{"rowId":"c079-BC","form":"Banglish (from colloquial)","draft":"bidduter substation","bn":false}]},{"id":"c080","kind":"concept","english":"wastewater treatment plant","usedIn":["PatternNet: wastewater_treatment_plant"],"items":[{"rowId":"c080-F","form":"Formal Bangla","draft":"বর্জ্যপানি শোধনাগার","bn":true},{"rowId":"c080-C","form":"Colloquial Bangla","draft":"ময়লা পানি পরিষ্কারের প্ল্যান্ট","bn":true},{"rowId":"c080-BF","form":"Banglish (from formal)","draft":"borjopani shodhonagar","bn":false},{"rowId":"c080-BC","form":"Banglish (from colloquial)","draft":"moyla pani porishkarer plant","bn":false}]},{"id":"P1","kind":"template","english":"{} is visible in this satellite image.","usedIn":[],"items":[{"rowId":"P1-F","form":"Formal Bangla","draft":"এই উপগ্রহ চিত্রে {} দৃশ্যমান।","bn":true},{"rowId":"P1-C","form":"Colloquial Bangla","draft":"এই স্যাটেলাইট ছবিতে {} দেখা যাচ্ছে।","bn":true},{"rowId":"P1-B","form":"Banglish","draft":"ei satellite chobite {} dekha jacche","bn":false}]},{"id":"P2","kind":"template","english":"Satellite image: {}.","usedIn":[],"items":[{"rowId":"P2-F","form":"Formal Bangla","draft":"উপগ্রহ চিত্র: {}।","bn":true},{"rowId":"P2-C","form":"Colloquial Bangla","draft":"স্যাটেলাইট ছবি: {}।","bn":true},{"rowId":"P2-B","form":"Banglish","draft":"satellite chobi: {}","bn":false}]},{"id":"P3","kind":"template","english":"{} seen from above.","usedIn":[],"items":[{"rowId":"P3-F","form":"Formal Bangla","draft":"উপর থেকে দৃশ্যমান {}।","bn":true},{"rowId":"P3-C","form":"Colloquial Bangla","draft":"উপর থেকে দেখা {}।","bn":true},{"rowId":"P3-B","form":"Banglish","draft":"upor theke dekha {}","bn":false}]},{"id":"P4","kind":"template","english":"{} is visible in a photo taken from the sky.","usedIn":[],"items":[{"rowId":"P4-F","form":"Formal Bangla","draft":"আকাশ থেকে ধারণকৃত চিত্রে {} দৃশ্যমান।","bn":true},{"rowId":"P4-C","form":"Colloquial Bangla","draft":"আকাশ থেকে তোলা ছবিতে {} দেখা যাচ্ছে।","bn":true},{"rowId":"P4-B","form":"Banglish","draft":"akash theke tola chobite {} dekha jacche","bn":false}]}]};
+</script>
+<script>
+(function () {
+'use strict';
+const $ = id => document.getElementById(id);
+const show = el => el.classList.remove('hidden');
+const hide = el => el.classList.add('hidden');
+const nfc = s => (s == null ? '' : String(s)).normalize('NFC').trim();
+
+const SCREENS = DATA.screens, N = SCREENS.length, CAP = 600;
+const ITEMS = {}; let TOTAL_ITEMS = 0;
+SCREENS.forEach(sc => sc.items.forEach(it => { ITEMS[it.rowId] = { sc, it }; TOTAL_ITEMS++; }));
+const params = new URLSearchParams(location.search);
+const MODE = SHEET_URL ? 'sheet' : 'local';
+const CODE = (params.get('r') || '').trim() || (MODE === 'local' ? 'local' : '');
+const EXPORT = params.get('export') === '1';
+const KEY = 'bangla-review:' + DATA.version + ':' + CODE;
+
+let S = null, LABEL = '', page = '', activeRow = 0, segStart = null;
+let syncTimer = null, inflight = false, backoff = 0, storageOK = true;
+const openComment = {};
+
+// ---------- storage ----------
+function blank() { return { answers: {}, seconds: {}, visits: {}, current: 0, about: {}, final: {}, dirty: {}, metaVer: 0, sentMetaVer: 0 }; }
+function readLocal() { try { const t = localStorage.getItem(KEY); return t ? JSON.parse(t) : null; } catch (e) { storageOK = false; return null; } }
+function persist() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { storageOK = false; } }
+const isEmpty = o => !o || Object.keys(o).every(k => o[k] === '' || o[k] == null || o[k] === false);
+
+// ---------- pages ----------
+function goPage(p) {
+  ['pMsg', 'pAbout', 'pReview', 'pFinish', 'pDone'].forEach(x => x === p ? show($(x)) : hide($(x)));
+  page = p;
+  $('btnGrid').classList.toggle('hidden', !['pReview', 'pFinish', 'pDone'].includes(p));
+  $('lnkExport').classList.toggle('hidden', !(EXPORT && S));
+  updateTop(); window.scrollTo(0, 0);
+}
+function msg(title, text, retry) {
+  $('msgTitle').textContent = title; $('msgText').textContent = text;
+  $('btnMsgRetry').classList.toggle('hidden', !retry); hide($('sync')); goPage('pMsg');
+}
+
+// ---------- validation ----------
+function ans(id) { return S.answers[id] || (S.answers[id] = { decision: '', version: '', comment: '' }); }
+function issue(id) {
+  const { sc, it } = ITEMS[id]; const a = S.answers[id];
+  if (!a || !a.decision) return 'needs a decision';
+  if (a.decision === 'Edit') {
+    const v = nfc(a.version);
+    if (!v) return 'type your version';
+    if (v === nfc(it.draft)) return 'your version is the same as the draft: change it, or choose Accept';
+    if (sc.kind === 'template' && v.split('{}').length - 1 !== 1) return 'keep {} exactly once in the sentence';
+  }
+  if (a.decision === 'Unsure' && !nfc(a.comment)) return 'write a short comment saying why';
+  return '';
+}
+function screenDone(i) { return SCREENS[i].items.every(it => !issue(it.rowId)); }
+function screenStarted(i) { return SCREENS[i].items.some(it => S.answers[it.rowId] && S.answers[it.rowId].decision); }
+function countDone() { let c = 0; for (let i = 0; i < N; i++) if (screenDone(i)) c++; return c; }
+
+// ---------- sync ----------
+function setStatus(kind) {
+  const el = $('sync'); show(el); el.className = 'sync ' + kind;
+  el.textContent = { saved: 'Saved ✓', saving: 'Saving…', retry: 'Not saved yet, retrying…', local: 'Test mode', connecting: 'Connecting…' }[kind] || '';
+  if (page === 'pDone') renderDone();
+}
+async function post(payload) {
+  const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 25000);
+  try {
+    const r = await fetch(SHEET_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload), signal: ctl.signal, redirect: 'follow' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  } finally { clearTimeout(t); }
+}
+function rowOut(id) {
+  const { sc, it } = ITEMS[id]; const a = S.answers[id] || {};
+  return { row_id: id, screen: sc.id, english: sc.english, form: it.form, draft: it.draft, decision: a.decision || '',
+           version: a.decision === 'Edit' ? nfc(a.version) : '', comment: nfc(a.comment) };
+}
+function payload(ids) {
+  return { action: 'save', code: CODE, data_version: DATA.version, rows: ids.map(rowOut), seconds: S.seconds, visits: S.visits,
+           current: S.current, screens_done: countDone(), total_screens: N, total_items: TOTAL_ITEMS,
+           about: S.about, final: S.final, client_time: new Date().toISOString() };
+}
+const pending = () => Object.keys(S.dirty).length > 0 || S.metaVer > S.sentMetaVer;
+function scheduleSync(ms) {
+  if (MODE !== 'sheet') { persist(); setStatus('local'); return; }
+  clearTimeout(syncTimer); syncTimer = setTimeout(flush, ms);
+  if (!$('sync').classList.contains('retry')) setStatus('saving');
+}
+async function flush() {
+  clearTimeout(syncTimer); syncTimer = null;
+  if (MODE !== 'sheet') return;
+  if (inflight) { syncTimer = setTimeout(flush, 800); return; }
+  if (!pending()) { setStatus('saved'); return; }
+  const ids = Object.keys(S.dirty), snap = {}, mv = S.metaVer;
+  ids.forEach(id => snap[id] = S.dirty[id]);
+  inflight = true;
+  try {
+    const res = await post(payload(ids));
+    if (!res || !res.ok) {
+      if (res && res.error === 'unknown_code') { msg('This link is not valid', 'Please check that you opened the exact link you received.'); return; }
+      throw new Error((res && res.error) || 'failed');
+    }
+    ids.forEach(id => { if (S.dirty[id] === snap[id]) delete S.dirty[id]; });
+    S.sentMetaVer = Math.max(S.sentMetaVer, mv); backoff = 0; persist();
+    if (pending()) { setStatus('saving'); syncTimer = setTimeout(flush, 300); } else setStatus('saved');
+  } catch (e) {
+    backoff = Math.min(backoff ? backoff * 2 : 4000, 60000);
+    setStatus('retry'); syncTimer = setTimeout(flush, backoff);
+  } finally { inflight = false; }
+}
+function markDirty(id) { S.dirty[id] = (S.dirty[id] || 0) + 1; persist(); scheduleSync(2000); }
+function metaChanged(ms) { S.metaVer++; persist(); scheduleSync(ms == null ? 2000 : ms); }
+
+// ---------- timing ----------
+function startTimer() { if (page === 'pReview' && !document.hidden) segStart = performance.now(); }
+function stopTimer() {
+  if (segStart === null) return;
+  const sec = Math.min((performance.now() - segStart) / 1000, CAP); const id = SCREENS[S.current].id;
+  S.seconds[id] = Math.round(((S.seconds[id] || 0) + sec) * 10) / 10; segStart = null;
+}
+
+// ---------- start-up ----------
+function merge(srv, L) {
+  const s = blank(); L = L || blank();
+  s.answers = Object.assign({}, srv.answers || {});
+  Object.keys(L.dirty || {}).forEach(id => { if (L.answers && L.answers[id]) s.answers[id] = L.answers[id]; });
+  s.dirty = Object.assign({}, L.dirty || {});
+  ['seconds', 'visits'].forEach(k => {
+    const m = Object.assign({}, srv[k] || {}); Object.keys(L[k] || {}).forEach(x => m[x] = Math.max(m[x] || 0, L[k][x])); s[k] = m;
+  });
+  const localMeta = (L.metaVer || 0) > (L.sentMetaVer || 0);
+  s.about = localMeta || isEmpty(srv.about) ? Object.assign({}, srv.about || {}, L.about || {}) : srv.about;
+  s.final = localMeta || isEmpty(srv.final) ? Object.assign({}, srv.final || {}, L.final || {}) : srv.final;
+  s.current = (L && typeof L.current === 'number' && L.metaVer) ? L.current : (srv.current || 0);
+  s.current = Math.max(0, Math.min(N - 1, s.current | 0));
+  s.metaVer = L.metaVer || 0; s.sentMetaVer = L.sentMetaVer || 0;
+  return s;
+}
+async function boot() {
+  if (MODE === 'sheet' && !CODE) return msg('Please use your personal link', 'This page needs the personal link you received (it ends with ?r= and a code). Please open that exact link.');
+  const local = readLocal();
+  if (MODE === 'local') {
+    S = Object.assign(blank(), local || {}); LABEL = 'test mode';
+    $('modeBanner').textContent = 'Test mode: no Google Sheet is connected, so answers are kept only in this browser.'; show($('modeBanner'));
+    setStatus('local'); return enter();
+  }
+  setStatus('connecting');
+  let res = null;
+  try { res = await post({ action: 'hello', code: CODE }); } catch (e) { res = null; }
+  if (res && res.ok === false && res.error === 'unknown_code') {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    return msg('This link is not valid', 'Please check that you opened the exact link you received.');
+  }
+  if (!res || !res.ok) {
+    if (local) { S = Object.assign(blank(), local); setStatus('retry'); syncTimer = setTimeout(flush, 4000); return enter(); }
+    return msg('Cannot connect', "Couldn't reach the server. Please check your internet connection, then tap Try again.", true);
+  }
+  LABEL = res.label || '';
+  S = merge(res, local); persist();
+  if (pending()) scheduleSync(500); else setStatus('saved');
+  enter();
+}
+function enter() {
+  if (!storageOK) { $('modeBanner').textContent = 'Your browser is blocking local storage, so please keep this page open until you see "Saved ✓".'; show($('modeBanner')); }
+  if (!S.about || !S.about.rules_ack) {
+    $('whoami').textContent = LABEL && MODE === 'sheet' ? 'You are reviewing as: ' + LABEL : '';
+    $('fNative').value = S.about.native || ''; $('fRegion').value = S.about.region || ''; $('fEdu').value = S.about.education || '';
+    return goPage('pAbout');
+  }
+  if (S.final && S.final.finished_at) return showDone();
+  goReview(S.current || 0);
+}
+
+// ---------- review screens ----------
+function goReview(i) { stopTimer(); goPage('pReview'); goTo(i); }
+function goTo(i) {
+  stopTimer();
+  S.current = Math.max(0, Math.min(N - 1, i));
+  const id = SCREENS[S.current].id; S.visits[id] = (S.visits[id] || 0) + 1;
+  metaChanged(); renderScreen(firstOpen(), null); startTimer(); window.scrollTo(0, 0);
+}
+function firstOpen() { const its = SCREENS[S.current].items; const k = its.findIndex(it => issue(it.rowId)); return k < 0 ? 0 : k; }
+function nextOpen(after) {
+  const its = SCREENS[S.current].items;
+  for (let k = after + 1; k < its.length; k++) if (issue(its[k].rowId)) return k;
+  for (let k = 0; k <= after; k++) if (issue(its[k].rowId)) return k;
+  return Math.min(after + 1, its.length - 1);
+}
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+function renderScreen(active, focus) {
+  const sc = SCREENS[S.current];
+  const head = $('screenHead'); head.innerHTML = '';
+  head.append(el('div', 'muted', 'Screen ' + (S.current + 1) + ' of ' + N));
+  if (sc.kind === 'concept') {
+    head.append(el('h1', '', sc.english));
+    head.append(el('p', 'muted', 'Used in: ' + sc.usedIn.join('; ')));
+    const a = el('a', '', 'See example images ↗'); a.target = '_blank'; a.rel = 'noopener';
+    a.href = 'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(sc.english + ' satellite image'); head.append(a);
+  } else {
+    head.append(el('h1', '', 'Sentence ' + sc.id.slice(1) + ' of 4'));
+    head.append(el('p', '', 'Meaning: ' + sc.english));
+    head.append(el('p', 'muted', '{} marks where a place name goes. Check the sentence itself: correct, natural, same meaning. If you edit, keep {} exactly once.'));
+  }
+  const rows = $('rows'); rows.innerHTML = '';
+  sc.items.forEach((it, idx) => {
+    const a = S.answers[it.rowId] || {};
+    const r = el('div', 'row'); r.dataset.idx = idx; r.dataset.row = it.rowId;
+    r.addEventListener('click', () => setActive(idx));
+    r.append(el('div', 'form', it.form));
+    const d = el('div', 'draft' + (it.bn ? ' bn' : ''), it.draft); d.lang = it.bn ? 'bn' : 'en'; r.append(d);
+    const ch = el('div', 'choices');
+    [['Accept', 'accept', '✓ Accept'], ['Edit', 'edit', '✎ Edit'], ['Unsure', 'unsure', '? Unsure']].forEach(([v, c, lab]) => {
+      const b = el('button', 'choice ' + c, lab); b.type = 'button'; b.dataset.choice = v;
+      b.setAttribute('aria-pressed', a.decision === v ? 'true' : 'false');
+      b.addEventListener('click', e => { e.stopPropagation(); setDecision(idx, v); });
+      ch.append(b);
+    });
+    r.append(ch);
+    if (a.decision === 'Edit') {
+      const box = el('div', 'sub'); box.append(el('label', '', 'Your version'));
+      const ta = el('textarea', it.bn ? 'bn' : ''); ta.rows = 1; ta.dataset.role = 'edit';
+      ta.value = a.version != null && a.version !== '' ? a.version : it.draft;
+      ta.addEventListener('input', () => { ans(it.rowId).version = ta.value; markDirty(it.rowId); refresh(); });
+      box.append(ta); r.append(box);
+    }
+    const wantComment = a.decision === 'Unsure' || nfc(a.comment) || openComment[it.rowId];
+    if (wantComment) {
+      const box = el('div', 'sub'); box.append(el('label', '', a.decision === 'Unsure' ? 'Why are you unsure? (required)' : 'Comment (optional)'));
+      const ta = el('textarea', 'bn'); ta.rows = 1; ta.dataset.role = 'comment'; ta.value = a.comment || '';
+      ta.addEventListener('input', () => { ans(it.rowId).comment = ta.value; markDirty(it.rowId); refresh(); });
+      box.append(ta); r.append(box);
+    } else if (a.decision) {
+      const lb = el('button', 'linkbtn', '+ add a comment'); lb.type = 'button';
+      lb.addEventListener('click', e => { e.stopPropagation(); openComment[it.rowId] = true; renderScreen(idx, { idx, role: 'comment' }); });
+      r.append(lb);
+    }
+    r.append(el('div', 'issue'));
+    rows.append(r);
+  });
+  setActive(active);
+  if (focus) {
+    const ta = rows.querySelector('.row[data-idx="' + focus.idx + '"] textarea[data-role="' + focus.role + '"]');
+    if (ta) { ta.focus(); const n = ta.value.length; try { ta.setSelectionRange(n, n); } catch (e) {} }
+  }
+  refresh();
+}
+function setActive(i) {
+  activeRow = i;
+  document.querySelectorAll('#rows .row').forEach(r => r.classList.toggle('active', +r.dataset.idx === i));
+}
+function setDecision(idx, v) {
+  const it = SCREENS[S.current].items[idx]; const a = ans(it.rowId);
+  a.decision = v;
+  if (v === 'Edit' && !nfc(a.version)) a.version = it.draft;
+  markDirty(it.rowId);
+  if (v === 'Edit') renderScreen(idx, { idx, role: 'edit' });
+  else if (v === 'Unsure') renderScreen(idx, { idx, role: 'comment' });
+  else renderScreen(nextOpen(idx), null);
+}
+function refresh() {
+  const sc = SCREENS[S.current]; let open = 0;
+  sc.items.forEach((it, idx) => {
+    const r = document.querySelector('#rows .row[data-idx="' + idx + '"]'); if (!r) return;
+    const is = issue(it.rowId); const a = S.answers[it.rowId];
+    r.classList.toggle('done', !is);
+    r.querySelector('.issue').textContent = is && a && a.decision ? 'Still needed: ' + is : '';
+    if (is) open++;
+  });
+  const done = open === 0;
+  $('btnNext').disabled = !done;
+  $('btnNext').textContent = S.current === N - 1 ? 'Last step →' : 'Next →';
+  $('btnPrev').disabled = S.current === 0;
+  $('navMsg').textContent = done ? '' : (open === 1 ? '1 row left on this screen' : open + ' rows left on this screen');
+  updateTop();
+}
+function updateTop() {
+  if (!S) { $('pos').textContent = ''; return; }
+  const d = countDone(); $('barFill').style.width = (100 * d / N) + '%';
+  $('pos').textContent = page === 'pReview' ? 'Screen ' + (S.current + 1) + '/' + N + ' · ' + d + ' done' : (page === 'pAbout' || page === 'pMsg' ? '' : d + '/' + N + ' screens done');
+}
+function goNext() { if (!screenDone(S.current)) return; if (S.current < N - 1) goTo(S.current + 1); else openFinish(); }
+function goPrev() { if (S.current > 0) goTo(S.current - 1); }
+
+// ---------- grid ----------
+function openGrid() {
+  stopTimer(); const g = $('grid'); g.innerHTML = '';
+  SCREENS.forEach((sc, i) => {
+    const c = el('div', 'cell' + (screenDone(i) ? ' done' : screenStarted(i) ? ' part' : '') + (i === S.current && page === 'pReview' ? ' cur' : ''));
+    c.textContent = (i + 1) + '. ' + (sc.kind === 'concept' ? sc.english : 'Sentence ' + sc.id.slice(1));
+    c.addEventListener('click', () => { closeGrid(true); goReview(i); });
+    g.append(c);
+  });
+  $('gridModal').classList.add('open');
+}
+function closeGrid(silent) { $('gridModal').classList.remove('open'); if (!silent) startTimer(); }
+
+// ---------- finish ----------
+function openFinish() {
+  stopTimer(); persist(); goPage('pFinish');
+  const c = { Accept: 0, Edit: 0, Unsure: 0 };
+  Object.keys(ITEMS).forEach(id => { const a = S.answers[id]; if (a && c[a.decision] != null) c[a.decision]++; });
+  const st = $('finStats'); st.innerHTML = '';
+  [['Accepted', c.Accept], ['Edited', c.Edit], ['Unsure', c.Unsure]].forEach(([k, v]) => { const s = el('div', 'stat'); s.append(el('b', '', String(v))); s.append(el('span', 'muted', k)); st.append(s); });
+  const miss = []; for (let i = 0; i < N; i++) if (!screenDone(i)) miss.push(i);
+  const m = $('finMissing'); m.innerHTML = '';
+  if (miss.length) {
+    m.append(el('p', 'err', miss.length + ' screen(s) are not finished yet. Please complete them first:'));
+    const g = el('div', 'grid');
+    miss.forEach(i => { const sc = SCREENS[i]; const b = el('div', 'cell part', (i + 1) + '. ' + (sc.kind === 'concept' ? sc.english : 'Sentence ' + sc.id.slice(1))); b.addEventListener('click', () => goReview(i)); g.append(b); });
+    m.append(g);
+  }
+  $('fAI').value = S.final.ai_used || ''; $('fDiscuss').value = S.final.discussed || ''; $('fNotes').value = S.final.notes || '';
+  $('btnSubmit').disabled = miss.length > 0; $('finErr').textContent = '';
+}
+function showDone() { goPage('pDone'); renderDone(); }
+function renderDone() {
+  if (MODE !== 'sheet') { $('doneText').textContent = 'Test mode: answers were kept only in this browser.'; return; }
+  const ok = !pending();
+  $('doneTitle').textContent = ok ? 'Thank you! ✓' : 'Almost done…';
+  $('doneText').textContent = ok ? 'All your answers have been received. You can close this page.'
+    : 'Sending your last answers. Please keep this page open for a few seconds.';
+}
+
+// ---------- export (only with &export=1) ----------
+function exportAnswers(e) {
+  e.preventDefault(); stopTimer();
+  const out = { format: 'bangla-rs-review-export', data_version: DATA.version, code: CODE, about: S.about, final: S.final,
+    seconds_per_screen: S.seconds, visits_per_screen: S.visits, rows: Object.keys(ITEMS).map(rowOut), exported_at: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob); const a = document.createElement('a');
+  a.href = url; a.download = 'review_' + CODE + '.json'; document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1500); startTimer();
+}
+
+// ---------- events ----------
+$('btnStart').addEventListener('click', () => {
+  const native = $('fNative').value, rules = $('fRules').checked;
+  if (!native || !rules) { $('aboutErr').textContent = 'Please answer the first question and tick the checkbox.'; return; }
+  S.about = { native, region: nfc($('fRegion').value), education: nfc($('fEdu').value), rules_ack: true,
+              started_at: S.about.started_at || new Date().toISOString() };
+  metaChanged(500); goReview(S.current || 0);
+});
+$('btnNext').addEventListener('click', goNext);
+$('btnPrev').addEventListener('click', goPrev);
+$('btnGrid').addEventListener('click', openGrid);
+$('btnCloseGrid').addEventListener('click', () => closeGrid(false));
+$('btnGoFinish').addEventListener('click', () => { closeGrid(true); openFinish(); });
+$('btnBackReview').addEventListener('click', () => goReview(S.current));
+$('btnChange').addEventListener('click', openGrid);
+$('btnMsgRetry').addEventListener('click', () => { hide($('btnMsgRetry')); boot(); });
+$('lnkExport').addEventListener('click', exportAnswers);
+$('gridModal').addEventListener('click', e => { if (e.target.id === 'gridModal') closeGrid(false); });
+$('btnSubmit').addEventListener('click', () => {
+  const ai = $('fAI').value, dis = $('fDiscuss').value;
+  if (!ai || !dis) { $('finErr').textContent = 'Please answer both questions.'; return; }
+  S.final = { ai_used: ai, discussed: dis, notes: nfc($('fNotes').value), finished_at: new Date().toISOString() };
+  metaChanged(0); showDone();
+});
+document.addEventListener('keydown', e => {
+  if ($('gridModal').classList.contains('open')) { if (e.key === 'Escape') closeGrid(false); return; }
+  if (page !== 'pReview') return;
+  const t = e.target, tag = t && t.tagName;
+  if (tag === 'TEXTAREA' || tag === 'INPUT' || tag === 'SELECT') { if (e.key === 'Escape') { t.blur(); e.preventDefault(); } return; }
+  if (tag === 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) return;
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  const n = SCREENS[S.current].items.length;
+  switch (e.key) {
+    case 'ArrowDown': setActive(Math.min(activeRow + 1, n - 1)); e.preventDefault(); break;
+    case 'ArrowUp': setActive(Math.max(activeRow - 1, 0)); e.preventDefault(); break;
+    case '1': setDecision(activeRow, 'Accept'); e.preventDefault(); break;
+    case '2': setDecision(activeRow, 'Edit'); e.preventDefault(); break;
+    case '3': setDecision(activeRow, 'Unsure'); e.preventDefault(); break;
+    case 'Enter': case 'ArrowRight': if (!$('btnNext').disabled) goNext(); e.preventDefault(); break;
+    case 'ArrowLeft': goPrev(); e.preventDefault(); break;
+  }
+});
+document.addEventListener('visibilitychange', () => {
+  if (!S) return;
+  if (document.hidden) { stopTimer(); persist(); if (pending()) flush(); } else startTimer();
+});
+window.addEventListener('online', () => { if (S && pending()) flush(); });
+window.addEventListener('pagehide', () => {
+  if (!S) return; stopTimer(); persist();
+  if (MODE === 'sheet' && pending() && navigator.sendBeacon) {
+    try { navigator.sendBeacon(SHEET_URL, new Blob([JSON.stringify(payload(Object.keys(S.dirty)))], { type: 'text/plain;charset=utf-8' })); } catch (e) {}
+  }
+});
+window.addEventListener('beforeunload', e => {
+  if (S && MODE === 'sheet' && pending() && $('sync').classList.contains('retry')) { e.preventDefault(); e.returnValue = ''; }
+});
+
+boot();
+})();
+</script>
+</body>
+</html>
